@@ -18,4 +18,3 @@ done
 pod_name=`kubectl -n $namespace_name get pods -o wide  | grep $deployment_name | grep Running | cut -f1 -d" "`
 
 echo "pod is now running with pod name -> $pod_name"
-kubectl -n $namespace_name port-forward $pod_name 9003:9003

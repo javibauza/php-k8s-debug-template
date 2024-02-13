@@ -37,6 +37,9 @@ spec:
             - name: http
               containerPort: 80
               protocol: TCP
+          volumeMounts:
+            - name: php-config
+              mountPath: "/usr/local/etc/php/conf.d"
           # livenessProbe:
           #   httpGet:
           #     path: /
@@ -47,6 +50,10 @@ spec:
           #     port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: php-config
+          configMap:
+            name: {{ include "php-k8s-debug.fullname" . }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
